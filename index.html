@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Feedback | Evaluation</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --bg-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .feedback-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+            border: none;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border: none;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-header p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .rating-group {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            margin-bottom: 5px;
+        }
+
+        .rating-group input {
+            display: none;
+        }
+
+        .rating-group label {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            color: #e0e0e0;
+            transition: color 0.2s;
+        }
+
+        .rating-group label i {
+            font-size: 24px;
+        }
+
+        .rating-group input:checked~label,
+        .rating-group label:hover,
+        .rating-group label:hover~label {
+            color: #ffc107;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            width: 100%;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            color: white;
+        }
+
+        .rating-label-group {
+            margin-bottom: 20px;
+        }
+
+        .rating-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .alert-success-custom {
+            display: none;
+            border-radius: 10px;
+            background-color: #d1e7dd;
+            border-color: #badbcc;
+            color: #0f5132;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="feedback-card">
+        <div class="card-header">
+            <h2>Project Feedback</h2>
+            <p>We value your evaluation and suggestions</p>
+        </div>
+        <div class="card-body">
+            <div id="successAlert" class="alert alert-success-custom">
+                <i class="fas fa-check-circle me-2"></i> Thank you! Your feedback has been submitted successfully.
+            </div>
+
+            <form id="feedbackForm">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="reviewerName" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="reviewerName" required placeholder="John Doe">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="reviewerRole" class="form-label">Role</label>
+                        <select class="form-select" id="reviewerRole" required>
+                            <option value="" selected disabled>Select Role</option>
+                            <option value="Teacher">Teacher / Professor</option>
+                            <option value="External Examiner">External Examiner</option>
+                            <option value="Placement Officer">Placement Officer</option>
+                            <option value="Industry Expert">Industry Expert</option>
+                            <option value="Student">Student / Peer</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-4 rating-label-group">
+                        <span class="rating-title">Overall Rating</span>
+                        <div class="rating-group">
+                            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5"
+                                title="5 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                                title="4 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                                title="3 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                                title="2 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                                title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 rating-label-group">
+                        <span class="rating-title">UI / UX Design</span>
+                        <div class="rating-group">
+                            <input type="radio" id="ui5" name="ui_rating" value="5" required /><label for="ui5"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="ui4" name="ui_rating" value="4" /><label for="ui4"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="ui3" name="ui_rating" value="3" /><label for="ui3"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="ui2" name="ui_rating" value="2" /><label for="ui2"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="ui1" name="ui_rating" value="1" /><label for="ui1"><i
+                                    class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 rating-label-group">
+                        <span class="rating-title">Functionality</span>
+                        <div class="rating-group">
+                            <input type="radio" id="func5" name="func_rating" value="5" required /><label for="func5"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="func4" name="func_rating" value="4" /><label for="func4"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="func3" name="func_rating" value="3" /><label for="func3"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="func2" name="func_rating" value="2" /><label for="func2"><i
+                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="func1" name="func_rating" value="1" /><label for="func1"><i
+                                    class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="comments" class="form-label">Comments & Suggestions</label>
+                    <textarea class="form-control" id="comments" rows="4"
+                        placeholder="What did you like? What can be improved?" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-submit" id="submitBtn">
+                    <span id="btnText">Submit Feedback</span>
+                    <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2" style="display:none;"></span>
+                </button>
+                <div class="text-center mt-3">
+                    <a href="reviews.html" class="text-muted small text-decoration-none">View All Reviews</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const successAlert = document.getElementById('successAlert');
+
+            // Loading state
+            btn.disabled = true;
+            btnText.textContent = 'Submitting...';
+            btnSpinner.style.display = 'inline-block';
+
+            // Gather data
+            const formData = {
+                reviewer_name: document.getElementById('reviewerName').value,
+                reviewer_role: document.getElementById('reviewerRole').value,
+                rating: document.querySelector('input[name="rating"]:checked').value,
+                ui_rating: document.querySelector('input[name="ui_rating"]:checked').value,
+                func_rating: document.querySelector('input[name="func_rating"]:checked').value,
+                comments: document.getElementById('comments').value
+            };
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('reviews')
+                    .insert([formData]);
+
+                if (error) throw error;
+
+                // Success
+                successAlert.style.display = 'block';
+                this.reset();
+                window.scrollTo(0, 0);
+
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    successAlert.style.display = 'none';
+                }, 5000);
+
+            } catch (error) {
+                alert('Error submitting feedback: ' + error.message);
+                console.error('Error:', error);
+            } finally {
+                // Reset button
+                btn.disabled = false;
+                btnText.textContent = 'Submit Feedback';
+                btnSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
