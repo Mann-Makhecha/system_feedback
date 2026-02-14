@@ -5,87 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Feedback | Evaluation</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="data:,">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#4361ee',
+                        secondary: '#3f37c9',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --bg-color: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .feedback-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            width: 100%;
-            max-width: 600px;
-            border: none;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 30px;
-            border: none;
-            text-align: center;
-        }
-
-        .card-header h2 {
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .card-header p {
-            opacity: 0.9;
-            margin-bottom: 0;
-        }
-
-        .card-body {
-            padding: 40px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .form-control,
-        .form-select {
-            border-radius: 10px;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
-        }
-
         .rating-group {
             display: flex;
             flex-direction: row-reverse;
             justify-content: flex-end;
-            margin-bottom: 5px;
             position: relative;
         }
 
@@ -115,73 +59,30 @@
         .rating-group label:hover~label {
             color: #ffc107;
         }
-
-        .btn-submit {
-            background-color: var(--primary-color);
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-            width: 100%;
-            color: white;
-            margin-top: 20px;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-            color: white;
-        }
-
-        .rating-label-group {
-            margin-bottom: 20px;
-        }
-
-        .rating-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .alert-success-custom {
-            display: none;
-            border-radius: 10px;
-            background-color: #d1e7dd;
-            border-color: #badbcc;
-            color: #0f5132;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
     </style>
 </head>
 
-<body>
+<body class="font-inter bg-gray-50 min-h-screen flex items-center justify-center p-5">
 
-    <div class="feedback-card">
-        <div class="card-header">
-            <h2>Project Feedback</h2>
-            <p>We value your evaluation and suggestions</p>
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-xl">
+        <div class="bg-gradient-to-br from-primary to-secondary text-white py-8 px-8 text-center">
+            <h2 class="text-2xl font-bold mb-1">Project Feedback</h2>
+            <p class="opacity-90">We value your evaluation and suggestions</p>
         </div>
-        <div class="card-body">
-            <div id="successAlert" class="alert alert-success-custom">
-                <i class="fas fa-check-circle me-2"></i> Thank you! Your feedback has been submitted successfully.
+        <div class="p-8 sm:p-10">
+            <div id="successAlert" class="hidden rounded-xl bg-green-100 border border-green-300 text-green-800 p-4 mb-5 text-center">
+                <i class="fas fa-check-circle mr-2"></i> Thank you! Your feedback has been submitted successfully.
             </div>
 
             <form id="feedbackForm">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="reviewerName" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="reviewerName" required placeholder="John Doe">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="reviewerName" class="block font-semibold text-gray-700 mb-2">Your Name</label>
+                        <input type="text" class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" id="reviewerName" required placeholder="John Doe">
                     </div>
-                    <div class="col-md-6">
-                        <label for="reviewerRole" class="form-label">Role</label>
-                        <select class="form-select" id="reviewerRole" required>
+                    <div>
+                        <label for="reviewerRole" class="block font-semibold text-gray-700 mb-2">Role</label>
+                        <select class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-white" id="reviewerRole" required>
                             <option value="" selected disabled>Select Role</option>
                             <option value="Teacher">Teacher / Professor</option>
                             <option value="External Examiner">External Examiner</option>
@@ -193,66 +94,51 @@
                     </div>
                 </div>
 
-                <div class="row mb-2">
-                    <div class="col-md-4 rating-label-group">
-                        <span class="rating-title">Overall Rating</span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="mb-3">
+                        <span class="block text-sm font-semibold text-gray-500 mb-1">Overall Rating</span>
                         <div class="rating-group">
-                            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5"
-                                title="5 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                                title="4 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                                title="3 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                                title="2 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                                title="1 star"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
-                    <div class="col-md-4 rating-label-group">
-                        <span class="rating-title">UI / UX Design</span>
+                    <div class="mb-3">
+                        <span class="block text-sm font-semibold text-gray-500 mb-1">UI / UX Design</span>
                         <div class="rating-group">
-                            <input type="radio" id="ui5" name="ui_rating" value="5" required /><label for="ui5"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="ui4" name="ui_rating" value="4" /><label for="ui4"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="ui3" name="ui_rating" value="3" /><label for="ui3"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="ui2" name="ui_rating" value="2" /><label for="ui2"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="ui1" name="ui_rating" value="1" /><label for="ui1"><i
-                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="ui5" name="ui_rating" value="5" required /><label for="ui5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="ui4" name="ui_rating" value="4" /><label for="ui4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="ui3" name="ui_rating" value="3" /><label for="ui3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="ui2" name="ui_rating" value="2" /><label for="ui2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="ui1" name="ui_rating" value="1" /><label for="ui1"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
-                    <div class="col-md-4 rating-label-group">
-                        <span class="rating-title">Functionality</span>
+                    <div class="mb-3">
+                        <span class="block text-sm font-semibold text-gray-500 mb-1">Functionality</span>
                         <div class="rating-group">
-                            <input type="radio" id="func5" name="func_rating" value="5" required /><label for="func5"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="func4" name="func_rating" value="4" /><label for="func4"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="func3" name="func_rating" value="3" /><label for="func3"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="func2" name="func_rating" value="2" /><label for="func2"><i
-                                    class="fas fa-star"></i></label>
-                            <input type="radio" id="func1" name="func_rating" value="1" /><label for="func1"><i
-                                    class="fas fa-star"></i></label>
+                            <input type="radio" id="func5" name="func_rating" value="5" required /><label for="func5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="func4" name="func_rating" value="4" /><label for="func4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="func3" name="func_rating" value="3" /><label for="func3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="func2" name="func_rating" value="2" /><label for="func2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="func1" name="func_rating" value="1" /><label for="func1"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
                 </div>
 
-                <div class="mb-4">
-                    <label for="comments" class="form-label">Comments & Suggestions</label>
-                    <textarea class="form-control" id="comments" rows="4"
+                <div class="mb-5">
+                    <label for="comments" class="block font-semibold text-gray-700 mb-2">Comments & Suggestions</label>
+                    <textarea class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" id="comments" rows="4"
                         placeholder="What did you like? What can be improved?" required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-submit" id="submitBtn">
+                <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-semibold py-3.5 rounded-lg tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 mt-2" id="submitBtn">
                     <span id="btnText">Submit Feedback</span>
-                    <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2" style="display:none;"></span>
+                    <span id="btnSpinner" class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2 align-middle" style="display:none;"></span>
                 </button>
                 <div class="text-center mt-3">
-                    <a href="reviews.html" class="text-muted small text-decoration-none">View All Reviews</a>
+                    <a href="reviews.html" class="text-gray-400 text-sm hover:text-primary transition">View All Reviews</a>
                 </div>
             </form>
         </div>
@@ -293,13 +179,13 @@
                 if (error) throw error;
 
                 // Success
-                successAlert.style.display = 'block';
+                successAlert.classList.remove('hidden');
                 this.reset();
                 window.scrollTo(0, 0);
 
                 // Hide success message after 3 seconds
                 setTimeout(() => {
-                    successAlert.style.display = 'none';
+                    successAlert.classList.add('hidden');
                 }, 5000);
 
             } catch (error) {
