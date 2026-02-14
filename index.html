@@ -11,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
     <style>
         :root {
             --primary-color: #4361ee;
@@ -85,10 +86,15 @@
             flex-direction: row-reverse;
             justify-content: flex-end;
             margin-bottom: 5px;
+            position: relative;
         }
 
         .rating-group input {
-            display: none;
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
         }
 
         .rating-group label {
